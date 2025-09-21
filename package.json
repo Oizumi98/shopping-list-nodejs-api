@@ -5,9 +5,12 @@
   "description": "買ったものリスト分析API - Node.js中間層",
   "main": "api/index.js",
   "scripts": {
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "eslint . --ext .ts,.js --fix",
     "type-check": "tsc --noEmit",
     "install:packages": "source .env.local && npm install",
-    "install:types": "source .env.local && npm install @oizumi98/supabase-types @oizumi98/shared-types"
+    "install:types": "source .env.local && npm install @oizumi98/supabase-types @oizumi98/shared-types",
+    "prepare": "husky"
   },
   "keywords": [
     "shopping-list",
@@ -24,11 +27,23 @@
     "@supabase/supabase-js": "^2.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.36.0",
     "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.44.0",
+    "@typescript-eslint/parser": "^8.44.0",
     "@vercel/node": "^5.3.23",
+    "eslint": "^9.36.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
     "typescript": "^5.0.0"
   },
   "engines": {
     "node": ">=22.0.0"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

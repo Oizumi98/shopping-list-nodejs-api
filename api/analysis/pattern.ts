@@ -13,7 +13,10 @@ interface APIError {
   };
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
+export default async function handler(
+  req: VercelRequest,
+  res: VercelResponse,
+): Promise<void> {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -34,8 +37,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
         message: 'このエンドポイントはGETリクエストのみサポートします',
         severity: 'low',
         retryable: false,
-        timestamp: new Date().toISOString()
-      }
+        timestamp: new Date().toISOString(),
+      },
     };
     res.status(405).json(error);
     return;
@@ -43,7 +46,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
 
   try {
     // Query parameters with type safety
-    const period = req.query.period as string || '1month';
+    // const period = (req.query.period as string) || '1month';
 
     // TODO: 認証ミドルウェアの実装後、実際のデータ分析
     // TODO: FastAPI連携の実装
@@ -63,39 +66,40 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
               avg_satisfaction_month: 0,
               dominant_categories: [],
               avg_amount: 0,
-              planned_ratio: 0
-            }
-          }
+              planned_ratio: 0,
+            },
+          },
         ],
         insights: [
           {
             type: 'info',
             title: 'データが不足しています',
-            message: '分析に必要なデータが不足しています。もう少し購入記録を追加してください。',
-            confidence: 1.0
-          }
+            message:
+              '分析に必要なデータが不足しています。もう少し購入記録を追加してください。',
+            confidence: 1.0,
+          },
         ],
         correlations: {
           amount_satisfaction: {
             correlation: 0,
-            description: '分析に十分なデータがありません'
+            description: '分析に十分なデータがありません',
           },
           planning_satisfaction: {
             correlation: 0,
-            description: '分析に十分なデータがありません'
-          }
-        }
+            description: '分析に十分なデータがありません',
+          },
+        },
       },
       cache_info: {
         cached: false,
-        updated_at: new Date().toISOString()
-      }
+        updated_at: new Date().toISOString(),
+      },
     };
 
     res.status(200).json(response);
   } catch (error) {
     console.error('Pattern analysis error:', error);
-    
+
     const apiError: APIError = {
       success: false,
       error: {
@@ -103,10 +107,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
         message: '分析処理中にエラーが発生しました',
         severity: 'high',
         retryable: true,
-        timestamp: new Date().toISOString()
-      }
+        timestamp: new Date().toISOString(),
+      },
     };
-    
+
     res.status(500).json(apiError);
   }
 }
