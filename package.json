@@ -1,0 +1,34 @@
+{
+  "name": "shopping-list-nodejs-api",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "買ったものリスト分析API - Node.js中間層",
+  "main": "api/index.js",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "install:packages": "source .env.local && npm install",
+    "install:types": "source .env.local && npm install @oizumi98/supabase-types @oizumi98/shared-types"
+  },
+  "keywords": [
+    "shopping-list",
+    "analysis",
+    "api",
+    "vercel",
+    "supabase"
+  ],
+  "author": "Oizumi98",
+  "license": "MIT",
+  "dependencies": {
+    "@oizumi98/shared-types": "^1.0.0",
+    "@oizumi98/supabase-types": "^1.0.0",
+    "@supabase/supabase-js": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@vercel/node": "^5.3.23",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
