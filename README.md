@@ -122,11 +122,26 @@ npm run lint:fix
 npm run install:types
 ```
 
-### コーディング規約
+### コーディング規約・ESLint
 
-- **フォーマット**: ESLintで統一
+このプロジェクトではESLintでコード品質とフォーマットを統一管理しています。
+
+**基本的な使い方:**
+```bash
+# コードをチェック
+npm run lint
+
+# 自動修正（フォーマット含む）
+npm run lint:fix
+```
+
+**開発フロー:**
+1. コードを書く
+2. `npm run lint:fix`で自動修正
+3. コミット（pre-commitで自動チェック）
+
 - **型安全性**: TypeScript strict mode
-- **コミット前**: `npm run lint:fix`で自動フォーマット
+- **コミット前**: 自動で`npm run lint:fix`が実行される
 
 ## API仕様
 
